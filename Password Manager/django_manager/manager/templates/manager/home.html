@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Django Password Manager</title>
+    <style>
+        table
+        {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, 
+        th 
+        {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) 
+        {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Website</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th><a href="/admin/manager/post/add/"><input type=button value="Add New Entry"></a></th>
+        </tr>
+            {% for credential in credentials %}
+            <tr>
+                <td><a href="{{ credential.website }}" target="_blank">{{ credential.website }}</a></td>
+                <td><input type="text" value="{{ credential.username }}" disabled></td>
+                <td><input type="password" value= " {{ credential.password }}" disabled></td>
+                <td><input type="submit" value="copy password" OnClick="copyStringToClipboard('{{ credential.password }}')">
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+    <script>
+        function copyStringToClipboard (str) {
+            var tA = document.createElement('textarea');
+            tA.value = str;
+            tA.setAttribute('readonly', '');
+            tA.style = {position: 'absolute', left: '-9999px'};
+            document.body.appendChild(tA);
+            tA.select();
+            document.execCommand('copy');   
+            document.body.removeChild(tA);
+        }
+    </script>
+</body>
+</html>
