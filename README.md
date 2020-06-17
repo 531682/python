@@ -1,2 +1,2 @@
 # python
-niet stelen homos
+niet stelen
